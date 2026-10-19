@@ -19,7 +19,7 @@
     --border: #e4e1da;
     --border-soft: #eeebe4;
 
-    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-display: 'DM Sans', system-ui, sans-serif;
     --font-body: 'DM Sans', system-ui, sans-serif;
 
     --max-width: 1200px;
@@ -636,3 +636,40 @@ a { color: inherit; text-decoration: none; }
 }
 
 .terms-link:hover { text-decoration: underline; }
+
+/* ------------------------------------------------------------------ */
+/* Typography refinements                                              */
+/* ------------------------------------------------------------------ */
+
+body {
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga";
+}
+
+.hero-title, .terms-title, .auth-title, .cta-title {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+}
+
+.feature-title, .terms-heading, .mock-total {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+}
+
+.hero-title em, .terms-title em {
+    font-style: normal;
+}
+
+.hero-subtitle, .cta-body, .auth-subtitle, .feature-body, .terms-block p {
+    color: #5a5a5a;
+}
+
+.feature-body, .terms-block p { line-height: 1.75; }
+
+.hero-badge, .mock-label {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.footer-copy { letter-spacing: 0.01em; }
