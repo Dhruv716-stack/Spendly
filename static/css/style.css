@@ -629,3 +629,10 @@ a { color: inherit; text-decoration: none; }
     .terms-section { padding: 2.5rem 1rem 3rem; }
     .terms-card { padding: 0.5rem 1.25rem; }
 }
+
+.terms-link {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.terms-link:hover { text-decoration: underline; }

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="terms-section">
+    <div class="terms-container">
+        <div class="terms-header">
+            <div class="hero-badge">Legal</div>
+            <h1 class="terms-title">Privacy <em>Policy</em></h1>
+            <p class="terms-updated">Last updated: October 2026</p>
+        </div>
+
+        <div class="terms-card">
+            <div class="terms-block">
+                <h2 class="terms-heading"><span class="terms-num">1</span>Data We Collect</h2>
+                <p>
+                    When you register, we collect your name and email address. As you use
+                    Spendly, we store the expense information you enter, such as amounts,
+                    categories, dates, and descriptions. We do not collect payment card
+                    details or access your bank accounts.
+                </p>
+            </div>
+
+            <div class="terms-block">
+                <h2 class="terms-heading"><span class="terms-num">2</span>How We Use Your Data</h2>
+                <p>
+                    Your data is used only to run Spendly: to authenticate you, to show your
+                    expenses and spending summaries, and to improve the reliability of the
+                    service. We do not sell your personal information or use it for
+                    advertising.
+                </p>
+            </div>
+
+            <div class="terms-block">
+                <h2 class="terms-heading"><span class="terms-num">3</span>Data Storage</h2>
+                <p>
+                    Your data is stored in the application's database, and passwords are
+                    stored in hashed form rather than plain text. We take reasonable steps to
+                    protect your information, but no method of storage or transmission is
+                    completely secure. You can delete your expenses at any time.
+                </p>
+            </div>
+
+            <div class="terms-block">
+                <h2 class="terms-heading"><span class="terms-num">4</span>Third Party Services</h2>
+                <p>
+                    Spendly loads fonts from Google Fonts, which may receive your IP address
+                    when a page loads. We do not share your expense data with any other third
+                    party, except where required by law.
+                </p>
+            </div>
+
+            <div class="terms-block">
+                <h2 class="terms-heading"><span class="terms-num">5</span>Contact Us</h2>
+                <p>
+                    If you have questions about this Privacy Policy or want your data
+                    removed, please contact us at
+                    <a href="mailto:support@spendly.example" class="terms-link">support@spendly.example</a>.
+                </p>
+            </div>
+        </div>
+
+        <p class="terms-back"><a href="{{ url_for('landing') }}">&larr; Back to home</a></p>
+    </div>
+</section>
+
+{% endblock %}
