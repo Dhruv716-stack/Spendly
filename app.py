@@ -1,8 +1,20 @@
-from flask import Flask, render_template
+import sqlite3
 
-from database.db import get_db, init_db, seed_db
+import os
+
+from flask import Flask, redirect, render_template, request, session, url_for
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from database.db import (
+    create_user,
+    get_db,
+    get_user_by_email,
+    init_db,
+    seed_db,
+)
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-me")
 
 with app.app_context():
     init_db()
@@ -18,14 +30,62 @@ def landing():
     return render_template("landing.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
+    if request.method == "GET":
+        return render_template("register.html")
+
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+
+    def fail(message):
+        return (
+            render_template(
+                "register.html", error=message, name=name, email=email
+            ),
+            400,
+        )
+
+    if not name or not email or not password:
+        return fail("All fields are required.")
+
+    local, _, domain = email.partition("@")
+    if not local or "." not in domain or "@" in domain:
+        return fail("Please enter a valid email address.")
+
+    if len(password) < 8:
+        return fail("Password must be at least 8 characters.")
+
+    if get_user_by_email(email):
+        return fail("An account with that email already exists.")
+
+    try:
+        create_user(name, email, generate_password_hash(password))
+    except sqlite3.IntegrityError:
+        return fail("An account with that email already exists.")
+
+    return redirect(url_for("login"))
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if request.method == "GET":
+        return render_template("login.html")
+
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+
+    user = get_user_by_email(email) if email else None
+    if not user or not check_password_hash(user["password_hash"], password):
+        return (
+            render_template("login.html", error="Invalid email or password."),
+            401,
+        )
+
+    session.clear()
+    session["user_id"] = user["id"]
+    return redirect(url_for("landing"))
 
 
 @app.route("/terms")
